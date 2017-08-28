@@ -4,7 +4,7 @@ Python package to easily create clean matplotlib charts/graphs. You gather, anal
 ## Available plot types  
 ### Dot Plot  
 A dot plot is ideal in the following three scenarios:  
-1) As an alternative to pie charts. Tufte sided against the use of pie charts. Unless the size of each segment/slice is noticeably different than the rest, a pie chart can be difficult to read. Pie chart creators may include labels that display the values, making them easier to interpret. But when a specific segment is too small to house the label, the label must be displayed outside of the graphic, with a line drawn to link it to its corresponding segment. This is ugly and add unnecessary junk to the visual. Here is a side-by-side comparison of a pie chart (code [here](https://matplotlib.org/examples/pie_and_polar_charts/pie_demo_features.html)) and a cleanplotlib dot plot:
+1) As an alternative to pie charts. Tufte sided against the use of pie charts. Unless the size of each segment/slice is noticeably different than the rest, a pie chart can be difficult to read. Pie chart creators may include labels that display the values, making them easier to interpret. But when a specific segment is too small to house the label, the label must be displayed outside of the graphic, with a line drawn to link it to its corresponding segment. This is ugly and add unnecessary junk to the visual. Here is a side-by-side comparison of a pie chart (code [here](https://matplotlib.org/examples/pie_and_polar_charts/pie_demo_features.html)) and the default cleanplotlib dot plot:
 ![Pie Chart vs Dot Plot](https://github.com/khdc-me/cleanplotlib/blob/master/pievsdot.png)  
   
 2) As an alternative to vertical and horizontal bar charts. A dot plot is a simple and clean visualization method when the intention is to compare sizes/amounts but not necessarily exact values.  
@@ -55,22 +55,23 @@ Ex: You have want to display the total sales for the year, for ten articles of c
         main()
     
 #### Notes  
-* If more than one value is passed for any given category, a dot will be placed at the first value and at the sum of each of the following values. So if it receives:  
+* If more than one value is passed for any given category, a dot will be placed at the first value and at the sum of each of the following values. So if my_dot_plot receives:  
 `categories = {'A': [10, 20, 19, 10]}`  
 dots will be placed at: (A, 10), (A, 30), (A, 49), and (A, 59)  
 A different shade of blue will be used for the dots (up to five dots)  
 * my_dot_plot uses the highest value in given data to determine the max value for the x-axis. It then evenly disects the chart into four equal segments via evenly spaced vertical grid lines.  
+* category names/lables should be shorter than 12 characters in length.
   
 ### Horizontal Bar Chart  
 A horizontal bar chart can completely substitute a regular (vertical) bar chart in any visualization, especially when:  
 1. there are many (more than 5) items/categories  
 1. at least 1 item/category label is longer than a bar chart’s x-axis can accommodate  
   
-Here is a side-by-side comparison a standard matplotlib horizontal bar chart (code [here](https://matplotlib.org/devdocs/gallery/lines_bars_and_markers/barh.html) and a cleanplotlib horizontal bar chart:  
+Here is a side-by-side comparison of a standard matplotlib horizontal bar chart (code [here](https://matplotlib.org/devdocs/gallery/lines_bars_and_markers/barh.html) and the default cleanplotlib horizontal bar chart:  
 ![Comparing Horizontal Bar Charts](https://github.com/khdc-me/cleanplotlib/blob/master/hbarvhbar.png)  
 
 #### Minimum Required Code  
-**my_hbar_plot** is currently optimized for a 10"x5" figure. The minimum required code to display a dot plot is:
+**my_hbar_plot** is currently optimized for a 10"x5" figure. The minimum required code to display a horizontal bar graph is:
   
     import matplotlib.pyplot as plt
     from matplotlib.pyplot import subplots_adjust
@@ -111,6 +112,59 @@ Here is a side-by-side comparison a standard matplotlib horizontal bar chart (co
     
 
 #### Notes  
-1. If more than one value is passed for any given category, the values will be added together and create a single bar of SUM length. So if it receives:  
+* If more than one value is passed for any given category, the values will be added together - displayed as a single bar of SUM length. So if my_hbar_plot receives:  
 `categories = {'A': [10, 20, 19, 10]}`,  
-it will display a bar for 'A' that is 59 units long.
+it will display a bar for 'A' that is 59 units long.  
+* category names/lables should be shorter than 12 characters in length.  
+  
+### Bar Chart (vertical/regular)  
+Bar charts illustrate comparisons among categories. It is best suited for categories with short names that can be displayed on the x-axis without risk of overlap, and when there are only a handful (5 or less) categories.  
+  
+Here is a side-by-side comparison of a standard matplotlib bar chart (code [here](https://pythonspot.com/en/matplotlib-bar-chart/)) and the default cleanplotlib bar chart:  
+![Compariong Bar Charts](https://github.com/khdc-me/cleanplotlib/blob/master/barvbar.png)  
+  
+#### Minimum Required Code  
+**my_bar_plot** is currently optimized for a 10"x5" figure. The minimum required code to display a bar graph is:  
+  
+    import matplotlib.pyplot as plt
+    from matplotlib.pyplot import subplots_adjust
+    import cleanplotlib as cpl
+    
+    
+    def main():
+        tcs = {'Python': [10],
+               'C++': [8],
+               'Java': [3, 3],
+               'Perl': [4],
+               'Scala': [2],
+               'Lisp': [1],
+               }
+    
+        fig1 = plt.figure(num=1,
+                          figsize=(10, 5),
+                          tight_layout=False,
+                          facecolor='#fafafa',
+                          edgecolor='#ff0000',
+                          frameon=True,
+                          )
+    
+        ax1 = plt.subplot2grid((1, 1), (0, 0), frameon=False)
+        ax1 = cpl.my_bar_plot(ax=ax1,
+                             the_data=tcs,
+                             title='Programming Language Usage',
+                             )
+        fig1.add_subplot(ax1)
+    
+        subplots_adjust(right=1.0)
+        plt.show()
+        plt.close()
+        print("closed")
+    
+    
+    if __name__ == '__main__':
+        main()
+    
+#### Notes  
+* If more than one value is passed for any given category, the values will be added together - displayed as a single bar of SUM height. So if my_bar_plot receives:
+`categories = {'A': [10, 20, 19, 10]}`,
+it will display a bar for 'A' that is 59 units high.
