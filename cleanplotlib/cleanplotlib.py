@@ -7,10 +7,10 @@ def my_dot_plot(ax, the_data, title=''):
     x_axis_max = 0
 
     dot_colors = ['#1f77b4',
-                  '#50A6C2',
-                  '#63D1F4',
-                  '#B2DFEE',
                   '#d0d0d0',
+                  '#50A6C2',
+                  '#B2DFEE',
+                  '#63D1F4',
                   ]
 
     ax.set_title(title)
@@ -60,6 +60,7 @@ def my_hbar_plot(ax, the_data, title=''):
         if x_axis_max < sum(v):
             x_axis_max = sum(v)
     char_width = x_axis_max/74
+    char_height = len(y_labels)*0.0014
     bar_lengths, y_labels = zip(*sorted(y_labels))
     y_spacing = np.arange(len(y_labels))
 
@@ -75,7 +76,7 @@ def my_hbar_plot(ax, the_data, title=''):
         else:
             x_offset = bar_length - ((len(str(bar_length)) + 1) * char_width)
             color_hex = '#ffffff'
-        y_offset = i - 0.14
+        y_offset = i - (char_height * 10)
         ax.text(x=x_offset, y=y_offset, s=qty, color=color_hex, weight='bold')
 
     return ax
