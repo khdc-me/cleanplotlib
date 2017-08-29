@@ -1,5 +1,16 @@
 # cleanplotlib
 Python package to easily create clean matplotlib charts/graphs. You gather, analyze, and organize the data. cleanplotlib transforms it into a pretty plot.  
+
+## Install  
+1. Download by clicking green "Clone or download" button, or clone from console  
+```git clone https://github.com/khdc-me/cleanplotlib```  
+1. Install  
+```pip install cleanplotlib```  
+  
+## Required  
+* Python 3+
+* matplotlib
+* NumPy
   
 ## Available plot types  
 ### Dot Plot  
