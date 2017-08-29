@@ -130,7 +130,8 @@ Here is a side-by-side comparison of a standard matplotlib horizontal bar chart 
 * If more than one value is passed for any given category, the values will be added together - displayed as a single bar of SUM length. So if my_hbar_plot receives:  
 `categories = {'A': [10, 20, 19, 10]}`,  
 it will display a bar for 'A' that is 59 units long.  
-* category names/lables should be shorter than 12 characters in length.  
+* Category names/lables should be shorter than 12 characters in length.  
+* If the length of the bar is shorter than the length of the annotation, the annotation's color is inverted and it is placed outside (to the right of) the bar.
   
 ### Bar Chart (vertical/regular)  
 Bar charts illustrate comparisons among categories. It is best suited for categories with short names that can be displayed on the x-axis without risk of overlap, and when there are only a handful (5 or less) categories.  
@@ -182,4 +183,5 @@ Here is a side-by-side comparison of a standard matplotlib bar chart (code [here
 #### Notes  
 * If more than one value is passed for any given category, the values will be added together - displayed as a single bar of SUM height. So if my_bar_plot receives:
 `categories = {'A': [10, 20, 19, 10]}`,
-it will display a bar for 'A' that is 59 units high.
+it will display a bar for 'A' that is 59 units high.  
+* If the height of the bar is shorter than the height of the annotation, the annotation's color is inverted and it is placed outside (above) the bar.
